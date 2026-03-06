@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Священный Архив | Hazbin Shitposts</title>
+  <!-- BEGIN: External Assets -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Inter:wght@400;600;800&amp;family=Lobster&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <!-- END: External Assets -->
+  <!-- BEGIN: Tailwind Configuration -->
+  <script data-purpose="tailwind-config" id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#730c1d",
+            "blood": "#480415",
+            "gold": "#b8860b",
+            "coal": "#0a0a0a",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"],
+            "gothic": ["'Great Vibes'", "cursive"],
+            "lobster": ["'Lobster'", "cursive"]
+          },
+        },
+      },
+    }
+  </script>
+  <!-- END: Tailwind Configuration -->
+  <!-- BEGIN: Custom Styles -->
+  <style data-purpose="custom-effects">
+    html {
+      scroll-snap-type: y proximity;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #f1f1f1;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Snap only on these sections */
+    section.snap-target {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* Burned Parchment Texture Overlay */
+    .parchment-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.08;
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMb5_Vz1HGvpbBeQWEhW9vpSNDmzCZHGRjpvm36e0HpTGwZAosRp4RkxqbEHVAHpNM7ibJJUImWSCjoL-fYlx6RWif_BHNMr6anWDcWQB1lFsuGO-YVYRMmj9LOjWqOBWUJsJec3FfPjIpLFScuWz4cZK1pu3zj8z4vOYRFLm7eogqjNP8kj-vufL1RTe8N_RIVSn-thP5yyVOifDaP1x35qri-nWj9vXaawob4x2IfI-6kTgDpJPY_Zg2gGy98XCL5zIUDVHclw');
+      mix-blend-mode: overlay;
+    }
+
+    /* Glitch Effect Simulation */
+    .glitch-bg {
+      position: relative;
+    }
+
+    .glitch-bg::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 1px, transparent 2px, transparent 4px);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .gold-border {
+      border: 2px solid #b8860b;
+      box-shadow: inset 0 0 15px rgba(184, 134, 11, 0.2), 0 0 15px rgba(184, 134, 11, 0.2);
+    }
+
+    .text-shadow-gold {
+      text-shadow: 0 0 15px rgba(184, 134, 11, 0.6);
+    }
+
+    .vertical-line {
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #b8860b, #730c1d, transparent);
+    }
+
+    /* Slider specific styling */
+    #legend-slider {
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    #legend-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pagination-dot {
+      width: 32px;
+      height: 6px;
+      border-radius: 999px;
+      background-color: #64748b;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .pagination-dot.active {
+      background-color: #b8860b;
+      box-shadow: 0 0 10px rgba(184, 134, 11, 0.8);
+      width: 48px;
+      opacity: 1;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-entrance {
+      animation: slideInUp 0.8s ease-out forwards;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-entrance {
+      animation: slideInUp 0.8s ease-out forwards;
+    }
+
+    @keyframes peek-scroll {
+      0% {
+        scroll-left: 0;
+      }
+
+      25% {
+        scroll-left: 100px;
+      }
+
+      100% {
+        scroll-left: 0;
+      }
+    }
+
+    .animate-peek {
+      animation: peek-scroll 1.5s ease-in-out;
+    }
+
+    #legend-slider:hover {
+      cursor: grab;
+    }
+
+    #legend-slider:active {
+      cursor: grabbing;
+    }
+
+    /* Indicator for scrollability on mobile */
+    #legend-slider::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 50px;
+      background: linear-gradient(to left, rgba(10, 10, 10, 0.8), transparent);
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
+  <!-- END: Custom Styles -->
+</head>
+
+<body class="font-display selection:bg-primary selection:text-white">
+  <div class="parchment-overlay"></div>
+  <!-- BEGIN: Navigation -->
+  <nav class="sticky top-0 z-40 w-full border-b border-gold/30 bg-coal/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-gold text-3xl">brightness_7</span>
+        <span class="font-lobster tracking-widest text-gold uppercase text-2xl">Священный Архив</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <a class="text-xs font-bold tracking-[0.2em] uppercase hover:text-gold transition-colors" href="#">Летопись</a>
+        <a class="text-xs font-bold tracking-[0.2em] uppercase hover:text-gold transition-colors" href="#">Активности</a>
+        <a class="px-6 py-2 tracking-widest rounded-full border border-gold text-gold text-xs font-bold uppercase hover:bg-gold hover:text-coal transition-all font-lobster"
+          href="#">Стать щитпостером</a>
+      </div>
+    </div>
+  </nav>
+  <!-- END: Navigation -->
+  <!-- BEGIN: Hero Section -->
+  <section
+    class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden glitch-bg snap-target">
+    <div class="absolute inset-0 z-0">
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gold/10 rounded-full blur-[80px]">
+      </div>
+    </div>
+    <div class="relative z-10 max-w-5xl space-y-8">
+      <div class="inline-block px-4 py-1 border border-gold/40 rounded-full bg-blood/30 backdrop-blur-sm">
+        <span class="text-[10px] font-bold tracking-[0.4em] text-gold uppercase">Когда ересь превратилась в культ</span>
+      </div>
+      <h1 class="font-gothic text-white leading-[0.9] text-[clamp(3.5rem,10vw,9rem)] pb-4">
+        Отвергнутые Раем,<br/>
+        <span class="text-gold text-shadow-gold">Влюблённые в Ад.</span>
+      </h1>
+      <p class="text-slate-400 max-w-xl mx-auto text-lg italic leading-relaxed">
+        "Окунись в хранилище щитпостеров. Любовь, интриги, информация о любимцах. Всё в одном склепе."
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
+        <button
+          class="group relative px-10 py-4 bg-primary rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95">
+          <div class="absolute inset-0 bg-gold/20 translate-y-full group-hover:translate-y-0 transition-transform">
+          </div>
+          <span class="relative z-10 font-lobster text-xl text-white tracking-widest uppercase">Войти в Собор</span>
+        </button>
+        <button
+          class="flex items-center gap-2 text-gold font-bold tracking-widest uppercase text-sm hover:underline decoration-gold underline-offset-8">
+          <span class="material-symbols-outlined">auto_stories</span> Запретные Свитки
+        </button>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      <span class="material-symbols-outlined text-gold/50 text-3xl">keyboard_double_arrow_down</span>
+    </div>
+  </section>
+  <!-- END: Hero Section -->
+  <!-- BEGIN: Legend Slider Section -->
+  <section class="py-24 max-w-7xl mx-auto px-6 overflow-hidden snap-target">
+    <div class="flex flex-col items-center text-center mb-16 space-y-4">
+      <h2 class="font-gothic text-white text-[clamp(2.5rem,8vw,4rem)] md:text-6xl">Иконы фандома</h2>
+      <div class="h-1 w-24 bg-gold"></div>
+    </div>
+    <div class="relative group">
+      <!-- Navigation Buttons -->
+      <button
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-coal/80 border border-gold text-gold p-4 rounded-full hover:bg-gold hover:text-coal transition-all hidden md:flex items-center justify-center"
+        onclick="document.getElementById('legend-slider').scrollBy({left: -350, behavior: 'smooth'})">
+        <span class="material-symbols-outlined">chevron_left</span>
+      </button>
+      <button
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-coal/80 border border-gold text-gold p-4 rounded-full hover:bg-gold hover:text-coal transition-all hidden md:flex items-center justify-center"
+        onclick="document.getElementById('legend-slider').scrollBy({left: 350, behavior: 'smooth'})">
+        <span class="material-symbols-outlined">chevron_right</span>
+      </button>
+      <!-- Scrollable Container -->
+      <div class="flex overflow-x-auto gap-6 md:gap-12 px-6 md:px-12 py-8 snap-x snap-mandatory" id="legend-slider">
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-3 mt-8" id="pagination-container">
+      <div class="pagination-dot" data-target="0"></div>
+      <div class="pagination-dot" data-target="1"></div>
+      <div class="pagination-dot" data-target="2"></div>
+      <div class="pagination-dot active" data-target="3"></div>
+      <div class="pagination-dot" data-target="4"></div>
+      <div class="pagination-dot" data-target="5"></div>
+      <div class="pagination-dot" data-target="6"></div>
+    </div>
+  </section>
+  <!-- END: Legend Slider Section -->
+  <!-- BEGIN: Gospel Timeline Section -->
+  <section class="py-24 bg-blood/10 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 relative">
+      <div class="flex flex-col items-center text-center mb-20 space-y-4">
+        <h2 class="font-gothic text-white text-[clamp(2.5rem,8vw,4rem)] md:text-6xl">Евангелие Событий</h2>
+        <p class="text-gold tracking-[0.3em] text-xs font-bold uppercase">Хроники проклятых</p>
+      </div>
+      <div class="relative">
+        <!-- Vertical Line -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 vertical-line"></div>
+        <div class="space-y-24">
+          <!-- Event 1 -->
+          <div class="relative flex items-center justify-between w-full group">
+            <div class="w-[45%] text-right pr-12">
+              <span class="font-lobster text-gold block text-3xl">Ноябрь 2025</span>
+              <h4 class="text-white font-gothic text-4xl mb-2">Основание сообщества</h4>
+              <p class="text-slate-500 text-sm italic">Огонь зажжен, щитпостеры собираются.</p>
+            </div>
+            <div
+              class="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-coal border-2 border-gold flex items-center justify-center z-10 group-hover:bg-gold group-hover:text-coal transition-all">
+              <span class="material-symbols-outlined text-sm">flare</span>
+            </div>
+            <div class="w-[45%]"></div>
+          </div>
+          <!-- Event 2 -->
+          <div class="relative flex items-center justify-between w-full group">
+            <div class="w-[45%]"></div>
+            <div
+              class="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-coal border-2 border-primary flex items-center justify-center z-10 group-hover:bg-primary transition-all">
+              <span class="material-symbols-outlined text-sm text-gold">Contract_Delete</span>
+            </div>
+            <div class="w-[45%] text-left pl-12">
+              <span class="font-lobster text-gold block text-3xl">Февраль 2026</span>
+              <h4 class="text-white font-gothic text-4xl mb-2">Расторжение контрактов</h4>
+              <p class="text-slate-500 text-sm italic">Нашествие армии экзорцистов. Очистка неактивных контентмейкеров. Зарождение идеи о создании архива</p>
+            </div>
+          </div>
+          <!-- Event 3 -->
+          <div class="relative flex items-center justify-between w-full group">
+            <div class="w-[45%] text-right pr-12">
+              <span class="font-lobster text-gold block text-3xl">Наше время</span>
+              <h4 class="text-white font-gothic text-4xl mb-2">Святилище возведено</h4>
+              <p class="text-slate-500 text-sm italic">Архив был создан. Отель для щитпостеров начал работу</p>
+            </div>
+            <div
+              class="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-coal border-2 border-gold flex items-center justify-center z-10 group-hover:rotate-45 transition-transform">
+              <span class="material-symbols-outlined text-sm text-gold">all_inclusive</span>
+            </div>
+            <div class="w-[45%]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: Gospel Timeline Section -->
+  <!-- BEGIN: Telegram Access Block -->
+  <section class="py-24 px-6 flex justify-center">
+    <div
+      class="w-full max-w-4xl p-12 rounded-xl bg-gradient-to-br from-blood to-coal border-2 border-gold relative overflow-hidden group">
+      <div class="absolute top-0 right-0 p-8 opacity-10">
+        <span class="material-symbols-outlined text-9xl">send</span>
+      </div>
+      <div class="relative z-10 flex flex-col items-center text-center space-y-8">
+        <div class="w-16 h-16 rounded-full bg-gold/10 border border-gold flex items-center justify-center">
+          <span class="material-symbols-outlined text-gold text-3xl">mark_as_unread</span>
+        </div>
+        <h2 class="font-gothic text-white text-[clamp(2.5rem,8vw,4rem)] md:text-6xl">Принимайте Ежедневное Богохульство
+        </h2>
+        <p class="text-slate-400 max-w-md mx-auto italic">
+          "Если вы - щитпостер, но у вас нет здесь собственной странички или доступа к чату сообщества, присоединяйтесь к нам в Telegram!"
+        </p>
+        <div class="pt-4 flex flex-col items-center gap-4">
+          <button
+            class="px-12 py-5 bg-gold text-coal font-lobster text-2xl tracking-[0.1em] uppercase rounded-full hover:scale-105 transition-all shadow-[0_0_30px_rgba(184,134,11,0.4)]">
+            Открыть Telegram
+          </button>
+          <p class="text-[10px] text-primary font-bold uppercase tracking-[0.5em]">Предупреждение: Администраторы этого сайта не несут ответственности за последствия после перехода по ссылке.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: Telegram Access Block -->
+  <!-- BEGIN: Footer -->
+  <footer class="py-12 border-t border-gold/20 bg-coal">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-gold">history_edu</span>
+        <span class="text-slate-500 text-sm font-bold uppercase tracking-widest">© 2026 Священный Щитпост-Архив</span>
+      </div>
+      <div class="flex gap-8">
+        <a class="material-symbols-outlined text-slate-500 hover:text-gold transition-colors" href="#">terminal</a>
+        <a class="material-symbols-outlined text-slate-500 hover:text-gold transition-colors" href="#">policy</a>
+        <a class="material-symbols-outlined text-slate-500 hover:text-gold transition-colors" href="#">rss_feed</a>
+      </div>
+      <div class="text-[10px] font-bold text-slate-600 uppercase tracking-tighter italic">Коррумпированный архивный
+        проект для проклятых</div>
+    </div>
+  </footer>
+  <!-- END: Footer -->
+  <script>
+    const hoverEffects = [
+      'group-hover/card:rotate-6',
+      'group-hover/card:-rotate-6',
+      'group-hover/card:rotate-12',
+      'group-hover/card:-rotate-12',
+      'group-hover/card:scale-110',
+      'group-hover/card:scale-95',
+      'group-hover/card:translate-y-[-10px]',
+      'group-hover/card:shadow-[0_0_30px_rgba(184,134,11,0.4)]'
+    ];
+
+    const legendsData = [
+      {
+        name: 'Пророк Кринжа',
+        role: 'Носитель невысказанного слова',
+        desc: 'Первый, кто узрел бездну и ответил ей мемом.',
+        img: 'https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-avt-0068/8aa5884fbb604df9fc7329a55666a899~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=10399&refresh_token=9c0f78a2&x-expires=1771995600&x-signature=4Pec0odbROMUPLcjAvgPiBQhqa0%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=no1a',
+        link: '#'
+      },
+      {
+        name: 'Святой Щитпоста',
+        role: 'Тот, кто мемит немемимых',
+        desc: 'Его ирония настолько глубока, что переходит в искренность.',
+        img: '{{DATA:IMAGE:AB6AXuClBWWlTdDR3J8LiZqe-qzVj1a6dQtgP_HMMa_rVCNFDzR8ADMf09WC4k6QSZuxnTYWwNTytqwOUzsAPqCxWfhbnprzENNR_xOyHPwgfSA5Y8pWmhxDKw3noQyu3Clzz3z1L2aEJI9MoVqj4vpEZGEmKQgCzxKFFXNU061NpgPNbn0DqdROYAKzjlwgX2beBxDfaKFW4maEc6RwC3L8QgIHToljkuYAPkPxXmsUOhlU2kACJAs55zCW4vEkIqfvUJ_IzdAEZ-YOZA}}',
+        link: '#'
+      },
+      {
+        name: 'Архангел Иронии',
+        role: 'Страж многослойной истины',
+        desc: 'Владеет семью печатями сарказма.',
+        img: '{{DATA:IMAGE:AB6AXuAVvVWVHS-b0aKHdpQVVNrYybcE26PvMaY3m8l8wTOkhm5YVNr3rL6HkMzuEZOt-hFUelFmE7UghLEHUtYrmNB6PPvLzNRog-zatt4fOmPRGRp55ZMujYxIB2nhkclRNUWB3apqqkcpGErEOsGwUQER-vlJ3-B3gKaGpPXLUAEEh0uJc3SIgqRy5iEyKjfEnLY1POlox5AzjaZQ-pI9ZtyKsuxQ9eJvBhOLjhK_ESlJ1bj7HYeXpA0r9TTwUEkeMG8c923GvJV2yw}}',
+        link: '#'
+      },
+      {
+        name: 'Падший Модератор',
+        role: 'Изгнанник из райских кущ',
+        desc: 'Тот, кто банил во имя хаоса.',
+        img: '{{DATA:IMAGE:AB6AXuCfzMks1OLPE5MJ-fbfnrEdFVwSQ-XzwxmlJkPTStIo56nBUtYETMukVYoICduHKaP37lN-WalEvU8kKz_rWZCLRs-LRWJkuubzG1m363E7Yjzj7T1K4hrKLrfcvfpuvULMJa2gMwGpa03J7K3xEBD5KbImCCgLzWD88R5nBD10V5dSBfgh8zKVRQICFGw-iVF1Pr1TbiWNjBm2DxiCJYwDqew4z89FoSHW1c1WGN7n2ymmKitgpTaKFv60ivT9fm8z-X9pr8Lf3A}}',
+        link: '#'
+      },
+      {
+        name: 'Вестник Хаоса',
+        role: 'Разрушитель логических цепочек',
+        desc: 'Его приход знаменует конец здравого смысла.',
+        img: '{{DATA:IMAGE:AB6AXuDsP7l2W9e9KfHoMGRqkB9w69f4WILO7ILddGS6f8utYcn5FOdfr7R21zgyiodFan7X3PecgCp2mPTuvpzL78LuMfPbzADF9tXjY8xEI-Hc7bfJqqU-RICU9Lun4BpfdeM5jpbhZmtm9S5MCKzIzR7A78t5nOQuZabg-ynYnL6YoLCdUV32MvHgTc-QCltdDLLIlthlVFLYPwbdEj6X-7b7308ONhkYony85gD-Tc1Z-8YL0UhKbwHeJSPGQofEbofo1cTvQGW3bg}}',
+        link: '#'
+      },
+      {
+        name: 'Хранитель Пустоты',
+        role: 'Архивариус забытых постов',
+        desc: 'Собирает осколки удаленного контента.',
+        img: '{{DATA:IMAGE:AB6AXuCyOmle5xgVNJxP0uqBRYRGwojf_BHsozlKonx6sy6fHZ3gXj6xcQTeFVh3lkTOvV8N_Gw07Y-sw1fU259x9L0f3BUIInpNti4wgS1L38LN8J31Mp6U8JQ5kay_jYM9GZdKjnA27tECIkqo8xCqIWl08OqMjd-l-CUUSfLBFropw_mFoXOAqrAKtbxfXh-RAOBMbk0xPLA6cQqRkJS62O56wjS3aMEKN66NV_9nNkZWpjG2aBz7jz7CYhNzBYIxQI_NS7vLQ4CgqA}}',
+        link: '#'
+      },
+      {
+        name: 'Охотник за Реликвиями',
+        role: 'Искатель утраченного пилота',
+        desc: 'Путешествует во времени в поисках оригинальных кадров.',
+        img: '{{DATA:IMAGE:AB6AXuAVV1dqXNNhEPMbwUb2YIg3UNeGPal60j4NY3GS9AeaPtjGCXNIChEHz9mRfaaK8kBggG4oM0QN4F6LgttZi5ab4wzVVJaZwps3s2X4AZhYy-50LE4CHpG_WNGUjZqnwviLE4somEnpw3mE5QP5zM0BdBMdh6nIQzfnN_1k3LPxQn9cYlAHerfUEU7JPyKd_I9tkfRCUmad9apjUWS_3V1SbBrDwedIBdCxXT0Nt7rNVGz6vCtd8AL6VSYeA-B1fxrprdE_ypXfqg}}',
+        link: '#'
+      }
+    ];
+
+    function renderLegends() {
+      const container = document.getElementById('legend-slider');
+      if (!container) return;
+
+      for (var i = 0; i < legendsData.length; i++) {
+        var x = Math.floor(Math.random() * legendsData.length)
+        var cup = legendsData[i]
+        legendsData[i] = legendsData[x]
+        legendsData[x] = cup
+      }
+      var legendNum = -1
+      const html = legendsData.map(legend => {
+        legendNum++
+        const effect = hoverEffects[Math.floor(Math.random() * hoverEffects.length)];
+        return `
+        <a class="flex-shrink-0 w-[80vw] md:w-72 snap-center group/card flex flex-col items-center gap-6 block hover:no-underline" data-index="${legendNum}" href="${legend.link}">
+<div class="relative w-64 h-64 rounded-full p-2 gold-border transition-transform duration-500 overflow-hidden ${effect}">
+<div class="w-full h-full rounded-full bg-cover bg-center grayscale group-hover/card:grayscale-0 transition-all duration-700" style="background-image: url('${legend.img}')"></div>
+</div>
+<div class="text-center space-y-2">
+<h3 class="font-gothic text-gold text-4xl">${legend.name}</h3>
+<p class="text-xs text-slate-500 uppercase tracking-widest font-bold">${legend.role}</p>
+<p class="text-sm text-slate-400 italic px-4">"${legend.desc}"</p>
+</div>
+</a>
+      `;
+      }).join('');
+
+      container.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', renderLegends);
+  </script>
+
+  <script>
+    // Logic for scroll snap behavior (Hybrid Approach)
+    document.addEventListener('DOMContentLoaded', () => {
+      // We want the window scroll to handle the wrapper until the wrapper is exhausted.
+      // But purely with CSS, we can achieve the requested effect by making the wrapper 
+      // the scrollable container for the first part of the site, OR by using an Intersection Observer
+      // to toggle classes on the HTML element. 
+      // However, the cleanest CSS-only way to have "snap then normal" is difficult.
+      // A common JS trick is to check scroll position.
+      // Here, we'll keep it simple: The 'snap-wrapper' div contains the first two sections.
+      // But to make the WHOLE page scroll naturally, we actually need to apply snap to the HTML/Body
+      // but only for the first N pixels. 
+      // Instead, let's use the provided strategy: Apply scroll-snap to a container (the body/html) 
+      // but only enforce it when within the Hero/Legend zone.
+      // Better approach for "Snap First 2 Sections, then Free Scroll":
+      // We will use IntersectionObserver to disable snap when we pass the Legends section.
+      const html = document.documentElement;
+      const legendSection = document.querySelector('#legend-slider').parentElement.parentElement; // Getting the section container
+      const observerOptions = {
+        root: null,
+        threshold: 0.1
+      };
+      const snapObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // If the legend section is intersecting (or above), we might want snap.
+          // But actually, we want to disable snap once we scroll PAST it.
+          // Let's check the bounding client rect.
+          const rect = legendSection.getBoundingClientRect();
+          // If the bottom of the Legend section is well above the viewport, disable snap on HTML
+          if (rect.bottom < 0) {
+            html.style.scrollSnapType = 'none';
+          } else {
+            html.style.scrollSnapType = 'y proximity';
+          }
+        });
+      }, { root: null, threshold: [0, 1] });
+      // We attach to a sentinel or just the sections themselves
+      snapObserver.observe(legendSection);
+      // Scroll listener for fine-tuning
+      window.addEventListener('scroll', () => {
+        const legendRect = legendSection.getBoundingClientRect();
+        if (legendRect.bottom <= 50) {
+          html.style.scrollSnapType = 'none';
+        } else {
+          html.style.scrollSnapType = 'y proximity';
+        }
+      }, { passive: true });
+      // Logic for Pagination Dots
+      const slider = document.getElementById('legend-slider');
+      const cards = slider.querySelectorAll('.group\\/card');
+      const dots = document.querySelectorAll('.pagination-dot');
+      const cardObserverOptions = {
+        root: slider,
+        threshold: 0.5 // Trigger when 50% of the card is visible
+      };
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = entry.target.getAttribute('data-index');
+            // Update dots
+            dots.forEach(dot => {
+              dot.classList.remove('active');
+              if (dot.getAttribute('data-target') === index) {
+                dot.classList.add('active');
+              }
+            });
+          }
+        });
+      }, cardObserverOptions);
+      cards.forEach(card => cardObserver.observe(card));
+      // Add click functionality to dots
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const targetIndex = dot.getAttribute('data-target');
+          const targetCard = slider.querySelector(`div[data-index="${targetIndex}"]`);
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
